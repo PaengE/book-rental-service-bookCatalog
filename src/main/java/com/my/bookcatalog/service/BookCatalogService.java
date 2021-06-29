@@ -18,14 +18,6 @@ public interface BookCatalogService {
     BookCatalogDTO save(BookCatalogDTO bookCatalogDTO);
 
     /**
-     * Partially updates a bookCatalog.
-     *
-     * @param bookCatalogDTO the entity to update partially.
-     * @return the persisted entity.
-     */
-    Optional<BookCatalogDTO> partialUpdate(BookCatalogDTO bookCatalogDTO);
-
-    /**
      * Get all the bookCatalogs.
      *
      * @param pageable the pagination information.

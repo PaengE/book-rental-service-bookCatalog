@@ -38,22 +38,6 @@ public class BookCatalogServiceImpl implements BookCatalogService {
     }
 
     @Override
-    public Optional<BookCatalogDTO> partialUpdate(BookCatalogDTO bookCatalogDTO) {
-        log.debug("Request to partially update BookCatalog : {}", bookCatalogDTO);
-
-        return bookCatalogRepository
-            .findById(bookCatalogDTO.getId())
-            .map(
-                existingBookCatalog -> {
-                    bookCatalogMapper.partialUpdate(existingBookCatalog, bookCatalogDTO);
-                    return existingBookCatalog;
-                }
-            )
-            .map(bookCatalogRepository::save)
-            .map(bookCatalogMapper::toDto);
-    }
-
-    @Override
     public Page<BookCatalogDTO> findAll(Pageable pageable) {
         log.debug("Request to get all BookCatalogs");
         return bookCatalogRepository.findAll(pageable).map(bookCatalogMapper::toDto);

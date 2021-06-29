@@ -100,42 +100,6 @@ public class BookCatalogResource {
     }
 
     /**
-     * {@code PATCH  /book-catalogs/:id} : Partial updates given fields of an existing bookCatalog, field will ignore if it is null
-     *
-     * @param id the id of the bookCatalogDTO to save.
-     * @param bookCatalogDTO the bookCatalogDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated bookCatalogDTO,
-     * or with status {@code 400 (Bad Request)} if the bookCatalogDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the bookCatalogDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the bookCatalogDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/book-catalogs/{id}", consumes = "application/merge-patch+json")
-    public ResponseEntity<BookCatalogDTO> partialUpdateBookCatalog(
-        @PathVariable(value = "id", required = false) final String id,
-        @RequestBody BookCatalogDTO bookCatalogDTO
-    ) throws URISyntaxException {
-        log.debug("REST request to partial update BookCatalog partially : {}, {}", id, bookCatalogDTO);
-        if (bookCatalogDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, bookCatalogDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!bookCatalogRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<BookCatalogDTO> result = bookCatalogService.partialUpdate(bookCatalogDTO);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, bookCatalogDTO.getId())
-        );
-    }
-
-    /**
      * {@code GET  /book-catalogs} : get all the bookCatalogs.
      *
      * @param pageable the pagination information.
