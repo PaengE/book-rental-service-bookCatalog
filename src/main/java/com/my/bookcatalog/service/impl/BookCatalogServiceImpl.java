@@ -54,12 +54,14 @@ public class BookCatalogServiceImpl implements BookCatalogService {
         bookCatalogRepository.deleteById(id);
     }
 
+    // 도서 카탈로그 등록
     private BookCatalog registerNewBook(BookChanged bookChanged) {
         BookCatalog bookCatalog = BookCatalog.registerNewBookCatalog(bookChanged);
         bookCatalog = bookCatalogRepository.save(bookCatalog);
         return bookCatalog;
     }
 
+    // 도서 카탈로그 대출 상태 수정
     private BookCatalog updateBookStatus(BookChanged bookChanged) {
         BookCatalog bookCatalog = bookCatalogRepository.findByBookId(bookChanged.getBookId());
         if (bookChanged.getEventType().equals("RENT_BOOK")) {
@@ -71,6 +73,7 @@ public class BookCatalogServiceImpl implements BookCatalogService {
         return bookCatalog;
     }
 
+    // 도서 카탈로그 정보 수정
     private BookCatalog updateBookInfo(BookChanged bookChanged) {
         BookCatalog bookCatalog = bookCatalogRepository.findByBookId(bookChanged.getBookId());
         bookCatalog = bookCatalog.updateBookCatalogInfo(bookChanged);
@@ -78,6 +81,7 @@ public class BookCatalogServiceImpl implements BookCatalogService {
         return bookCatalog;
     }
 
+    // 도서 카탈로그 삭제
     private void deleteBook(BookChanged bookChanged) {
         bookCatalogRepository.deleteByBookId(bookChanged.getBookId());
     }
@@ -87,6 +91,7 @@ public class BookCatalogServiceImpl implements BookCatalogService {
         return bookCatalogRepository.findByTitleContaining(title, pageable);
     }
 
+    // 이벤트 종류별 분기 처리
     @Override
     public void processCatalogChanged(BookChanged bookChanged) {
         String eventType = bookChanged.getEventType();
