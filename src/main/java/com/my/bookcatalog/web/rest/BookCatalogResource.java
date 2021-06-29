@@ -4,6 +4,7 @@ import com.my.bookcatalog.repository.BookCatalogRepository;
 import com.my.bookcatalog.service.BookCatalogService;
 import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
 import com.my.bookcatalog.web.rest.errors.BadRequestAlertException;
+import com.my.bookcatalog.web.rest.mapper.BookCatalogMapper;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -37,11 +38,16 @@ public class BookCatalogResource {
     private String applicationName;
 
     private final BookCatalogService bookCatalogService;
-
+    private final BookCatalogMapper bookCatalogMapper;
     private final BookCatalogRepository bookCatalogRepository;
 
-    public BookCatalogResource(BookCatalogService bookCatalogService, BookCatalogRepository bookCatalogRepository) {
+    public BookCatalogResource(
+        BookCatalogService bookCatalogService,
+        BookCatalogMapper bookCatalogMapper,
+        BookCatalogRepository bookCatalogRepository
+    ) {
         this.bookCatalogService = bookCatalogService;
+        this.bookCatalogMapper = bookCatalogMapper;
         this.bookCatalogRepository = bookCatalogRepository;
     }
 
@@ -58,7 +64,7 @@ public class BookCatalogResource {
         if (bookCatalogDTO.getId() != null) {
             throw new BadRequestAlertException("A new bookCatalog cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BookCatalogDTO result = bookCatalogService.save(bookCatalogDTO);
+        BookCatalogDTO result = bookCatalogMapper.toDto(bookCatalogService.save(bookCatalogMapper.toEntity(bookCatalogDTO)));
         return ResponseEntity
             .created(new URI("/api/book-catalogs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId()))
@@ -92,7 +98,7 @@ public class BookCatalogResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        BookCatalogDTO result = bookCatalogService.save(bookCatalogDTO);
+        BookCatalogDTO result = bookCatalogMapper.toDto(bookCatalogService.save(bookCatalogMapper.toEntity(bookCatalogDTO)));
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, bookCatalogDTO.getId()))
@@ -108,7 +114,7 @@ public class BookCatalogResource {
     @GetMapping("/book-catalogs")
     public ResponseEntity<List<BookCatalogDTO>> getAllBookCatalogs(Pageable pageable) {
         log.debug("REST request to get a page of BookCatalogs");
-        Page<BookCatalogDTO> page = bookCatalogService.findAll(pageable);
+        Page<BookCatalogDTO> page = bookCatalogService.findAll(pageable).map(bookCatalogMapper::toDto);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -122,7 +128,7 @@ public class BookCatalogResource {
     @GetMapping("/book-catalogs/{id}")
     public ResponseEntity<BookCatalogDTO> getBookCatalog(@PathVariable String id) {
         log.debug("REST request to get BookCatalog : {}", id);
-        Optional<BookCatalogDTO> bookCatalogDTO = bookCatalogService.findOne(id);
+        Optional<BookCatalogDTO> bookCatalogDTO = bookCatalogService.findOne(id).map(bookCatalogMapper::toDto);
         return ResponseUtil.wrapOrNotFound(bookCatalogDTO);
     }
 

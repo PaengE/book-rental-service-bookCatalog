@@ -3,7 +3,6 @@ package com.my.bookcatalog.service.impl;
 import com.my.bookcatalog.domain.BookCatalog;
 import com.my.bookcatalog.repository.BookCatalogRepository;
 import com.my.bookcatalog.service.BookCatalogService;
-import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
 import com.my.bookcatalog.web.rest.mapper.BookCatalogMapper;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -30,23 +29,21 @@ public class BookCatalogServiceImpl implements BookCatalogService {
     }
 
     @Override
-    public BookCatalogDTO save(BookCatalogDTO bookCatalogDTO) {
-        log.debug("Request to save BookCatalog : {}", bookCatalogDTO);
-        BookCatalog bookCatalog = bookCatalogMapper.toEntity(bookCatalogDTO);
-        bookCatalog = bookCatalogRepository.save(bookCatalog);
-        return bookCatalogMapper.toDto(bookCatalog);
+    public BookCatalog save(BookCatalog bookCatalog) {
+        log.debug("Request to save BookCatalog : {}", bookCatalog);
+        return bookCatalogRepository.save(bookCatalog);
     }
 
     @Override
-    public Page<BookCatalogDTO> findAll(Pageable pageable) {
+    public Page<BookCatalog> findAll(Pageable pageable) {
         log.debug("Request to get all BookCatalogs");
-        return bookCatalogRepository.findAll(pageable).map(bookCatalogMapper::toDto);
+        return bookCatalogRepository.findAll(pageable);
     }
 
     @Override
-    public Optional<BookCatalogDTO> findOne(String id) {
+    public Optional<BookCatalog> findOne(String id) {
         log.debug("Request to get BookCatalog : {}", id);
-        return bookCatalogRepository.findById(id).map(bookCatalogMapper::toDto);
+        return bookCatalogRepository.findById(id);
     }
 
     @Override
