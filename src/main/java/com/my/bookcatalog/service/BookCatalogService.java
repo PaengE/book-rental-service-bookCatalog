@@ -1,6 +1,8 @@
 package com.my.bookcatalog.service;
 
 import com.my.bookcatalog.domain.BookCatalog;
+import com.my.bookcatalog.domain.BookChanged;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +14,7 @@ public interface BookCatalogService {
     /**
      * Save a bookCatalog.
      *
-     * @param bookCatalogDTO the entity to save.
+     * @param bookCatalog the entity to save.
      * @return the persisted entity.
      */
     BookCatalog save(BookCatalog bookCatalog);
@@ -39,4 +41,13 @@ public interface BookCatalogService {
      * @param id the id of the entity.
      */
     void delete(String id);
+
+    // 제목으로 도서 검색
+    Page<BookCatalog> findBookByTitle(String title, Pageable pageable);
+
+    // kafka 이벤트 종류별 카테고라이징 처리
+    void processCatalogChanged(BookChanged bookChanged);
+
+    // 인기 도서 목록 조히
+    List<BookCatalog> loadTop10();
 }
