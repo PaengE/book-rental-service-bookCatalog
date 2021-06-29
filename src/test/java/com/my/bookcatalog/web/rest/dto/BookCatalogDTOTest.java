@@ -1,9 +1,8 @@
-package com.my.bookcatalog.service.dto;
+package com.my.bookcatalog.web.rest.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.my.bookcatalog.web.rest.TestUtil;
-import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
 import org.junit.jupiter.api.Test;
 
 class BookCatalogDTOTest {
