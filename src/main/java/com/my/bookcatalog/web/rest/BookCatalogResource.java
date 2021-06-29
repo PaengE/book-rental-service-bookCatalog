@@ -1,5 +1,6 @@
 package com.my.bookcatalog.web.rest;
 
+import com.my.bookcatalog.domain.BookCatalog;
 import com.my.bookcatalog.repository.BookCatalogRepository;
 import com.my.bookcatalog.service.BookCatalogService;
 import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
@@ -74,7 +75,7 @@ public class BookCatalogResource {
     /**
      * {@code PUT  /book-catalogs/:id} : Updates an existing bookCatalog.
      *
-     * @param id the id of the bookCatalogDTO to save.
+     * @param id             the id of the bookCatalogDTO to save.
      * @param bookCatalogDTO the bookCatalogDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated bookCatalogDTO,
      * or with status {@code 400 (Bad Request)} if the bookCatalogDTO is not valid,
@@ -143,5 +144,11 @@ public class BookCatalogResource {
         log.debug("REST request to delete BookCatalog : {}", id);
         bookCatalogService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
+    }
+
+    @GetMapping("/book-catalogs/top-10")
+    public ResponseEntity<List<BookCatalog>> loadTop10Books() {
+        List<BookCatalog> bookCatalogs = bookCatalogService.loadTop10();
+        return ResponseEntity.ok().body(bookCatalogs);
     }
 }
