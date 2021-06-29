@@ -8,6 +8,8 @@ import com.my.bookcatalog.web.rest.mapper.BookCatalogMapper;
 import java.util.List;
 import java.util.List;
 import java.util.List;
+import java.util.List;
+import java.util.Optional;
 import java.util.Optional;
 import java.util.Optional;
 import java.util.Optional;
