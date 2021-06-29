@@ -2,7 +2,7 @@ package com.my.bookcatalog.web.rest;
 
 import com.my.bookcatalog.repository.BookCatalogRepository;
 import com.my.bookcatalog.service.BookCatalogService;
-import com.my.bookcatalog.service.dto.BookCatalogDTO;
+import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
 import com.my.bookcatalog.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;

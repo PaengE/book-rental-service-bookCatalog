@@ -1,4 +1,4 @@
-package com.my.bookcatalog.service.dto;
+package com.my.bookcatalog.web.rest.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;

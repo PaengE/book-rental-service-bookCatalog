@@ -1,4 +1,4 @@
-package com.my.bookcatalog.service.mapper;
+package com.my.bookcatalog.web.rest.mapper;
 
 import java.util.List;
 import org.mapstruct.BeanMapping;

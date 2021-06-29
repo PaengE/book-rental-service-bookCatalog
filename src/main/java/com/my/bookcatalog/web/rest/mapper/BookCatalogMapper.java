@@ -1,7 +1,7 @@
-package com.my.bookcatalog.service.mapper;
+package com.my.bookcatalog.web.rest.mapper;
 
 import com.my.bookcatalog.domain.*;
-import com.my.bookcatalog.service.dto.BookCatalogDTO;
+import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
 import org.mapstruct.*;
 
 /**

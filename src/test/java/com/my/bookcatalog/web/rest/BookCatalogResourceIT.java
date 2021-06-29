@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.my.bookcatalog.IntegrationTest;
 import com.my.bookcatalog.domain.BookCatalog;
 import com.my.bookcatalog.repository.BookCatalogRepository;
-import com.my.bookcatalog.service.dto.BookCatalogDTO;
-import com.my.bookcatalog.service.mapper.BookCatalogMapper;
+import com.my.bookcatalog.web.rest.dto.BookCatalogDTO;
+import com.my.bookcatalog.web.rest.mapper.BookCatalogMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
