@@ -2,6 +2,7 @@ package com.my.bookcatalog.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -88,6 +89,45 @@ public class BookCatalog implements Serializable {
 
     public BookCatalog bookId(Long bookId) {
         this.bookId = bookId;
+        return this;
+    }
+
+    // 신규 도서 카탈로그 생성
+    public static BookCatalog registerNewBookCatalog(BookChanged bookChanged) {
+        BookCatalog bookCatalog = new BookCatalog();
+        bookCatalog.setBookId(bookChanged.getBookId());
+        bookCatalog.setAuthor(bookChanged.getAuthor());
+        bookCatalog.setClassification(bookChanged.getClassification());
+        bookCatalog.setDescription(bookChanged.getDescription());
+        bookCatalog.setPublicationDate(LocalDate.parse(bookChanged.getPublicationDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        bookCatalog.setRented(bookChanged.getRented());
+        bookCatalog.setTitle(bookChanged.getTitle());
+        bookCatalog.setRentCnt(bookChanged.getRentCnt());
+        return bookCatalog;
+    }
+
+    // 도서 대출 상태 수정. '대출 중' 으로 수정
+    public BookCatalog rentBook() {
+        this.setRentCnt(this.getRentCnt() + (long) 1);
+        this.setRented(true);
+        return this;
+    }
+
+    // 도서 대출 상태 수정. '대출 가능' 으로 수정
+    public BookCatalog returnBook() {
+        this.setRented(false);
+        return this;
+    }
+
+    // 도서 카탈로그 정보 수정
+    public BookCatalog updateBookCatalogInfo(BookChanged bookChanged) {
+        this.setAuthor(bookChanged.getAuthor());
+        this.setClassification(bookChanged.getClassification());
+        this.setDescription(bookChanged.getDescription());
+        this.setPublicationDate(LocalDate.parse(bookChanged.getPublicationDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        this.setRented(bookChanged.getRented());
+        this.setTitle(bookChanged.getTitle());
+        this.setRentCnt(bookChanged.getRentCnt());
         return this;
     }
 
