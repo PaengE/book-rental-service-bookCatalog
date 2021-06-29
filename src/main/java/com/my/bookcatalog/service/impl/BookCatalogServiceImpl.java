@@ -6,6 +6,8 @@ import com.my.bookcatalog.repository.BookCatalogRepository;
 import com.my.bookcatalog.service.BookCatalogService;
 import com.my.bookcatalog.web.rest.mapper.BookCatalogMapper;
 import java.util.List;
+import java.util.List;
+import java.util.Optional;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
