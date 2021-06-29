@@ -36,6 +36,8 @@
     "jwtSecretKey": "ZGU5NzY3NTI1YWY1ZTA0MGQzY2M1MjU1YTE2NTY5M2NlMjczOWVkZjY5NTM1YjJiNjEzMzUzYmJlZjYzMmU5YWM3MDM1MGZmMzI5ODkwOGQwN2VmNmZlNzIwNzI4ZTE4ODk3MmU4OWU5ZjAwZmJmYTkzNWU4YjY2ZTU4ZWZlZDI=",
     "devDatabaseType": "mongodb",
     "prodDatabaseType": "mongodb",
-    "languages": ["ko", "en"]
+    "languages": ["ko", "en"],
+    "lastLiquibaseTimestamp": 1624870339000,
+    "entities": ["BookCatalog"]
   }
 }
