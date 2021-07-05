@@ -31,6 +31,10 @@ public class BookCatalogDTO implements Serializable {
 
     private Long bookId;
 
+    public Boolean isRented() {
+        return rented;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
