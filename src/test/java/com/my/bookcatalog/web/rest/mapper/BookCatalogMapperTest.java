@@ -1,7 +1,5 @@
-package com.my.bookcatalog.service.mapper;
+package com.my.bookcatalog.web.rest.mapper;
 
-import com.my.bookcatalog.web.rest.mapper.BookCatalogMapper;
-import com.my.bookcatalog.web.rest.mapper.BookCatalogMapperImpl;
 import org.junit.jupiter.api.BeforeEach;
 
 class BookCatalogMapperTest {

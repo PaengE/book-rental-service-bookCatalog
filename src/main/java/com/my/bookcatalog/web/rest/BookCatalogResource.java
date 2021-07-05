@@ -146,6 +146,13 @@ public class BookCatalogResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
+    @GetMapping("/book-catalogs/title/{title}")
+    public ResponseEntity<List<BookCatalogDTO>> getBookByTitle(@PathVariable String title, Pageable pageable) {
+        log.debug("REST request to get BookCatalog : {}", title);
+        Page<BookCatalogDTO> page = bookCatalogService.findBookByTitle(title, pageable).map(bookCatalogMapper::toDto);
+        return ResponseEntity.ok().body(page.getContent());
+    }
+
     @GetMapping("/book-catalogs/top-10")
     public ResponseEntity<List<BookCatalog>> loadTop10Books() {
         List<BookCatalog> bookCatalogs = bookCatalogService.loadTop10();
